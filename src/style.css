@@ -1,0 +1,71 @@
+body {
+  background-color: #3d4e65;
+}
+
+.container {
+  display: block;
+  width: 40%;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px #d6d2d0;
+}
+
+form {
+  text-align: right;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  color: #1f1d1b;
+}
+
+.temp {
+  color: #53a6c8;
+}
+
+h1 {
+  text-align: right;
+  font-family: "Poppins", sans-serif;
+  color: #1f1d1b;
+}
+
+#date {
+  font-size: 25px;
+  text-align: right;
+  font-family: "Poppins", sans-serif;
+  padding: 2;
+}
+
+h3 {
+  color: #1f1d1b;
+  font-family: "Poppins", sans-serif;
+}
+
+.upcomingForecast {
+  display: flex;
+  text-align: center;
+}
+
+.forecast-date {
+  font-family: "Poppins", sans-serif;
+  color: #1f1d1b;
+}
+
+.forecast-temp {
+  font-family: "Poppins", sans-serif;
+  color: #53a6c8;
+}
+
+.col {
+  background-color: #f1f5f5;
+  border-radius: 10px;
+  margin: 3px;
+}
+footer {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #1f1d1b;
+  font-size: 10px;
+}
