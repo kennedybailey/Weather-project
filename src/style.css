@@ -41,17 +41,13 @@ h2 {
   color: #1f1d1b;
   text-transform: capitalize;
   line-height: 0.5;
-  margin-top: 8px;
+  margin-top: 45px;
 }
 
 #main-icon {
-  width: 75px;
-  aspect-ratio: 1/1;
-}
-
-.weatherinfo {
-  font-size: 15px;
-  display: inline-block;
+  width: 100px;
+  margin-right: 50px;
+  margin-bottom: 37px;
 }
 
 .temp {
@@ -62,19 +58,24 @@ h1 {
   text-align: right;
   font-family: "Poppins", sans-serif;
   color: #1f1d1b;
-  margin-top: 10px;
+  margin-top: 40px;
   text-transform: capitalize;
 }
 
 #current-temp {
-  font-size: 32pt;
+  font-size: 45pt;
 }
 
-#date {
+p {
   font-size: 15px;
   text-align: right;
   font-family: "Poppins", sans-serif;
   padding: 2;
+  text-transform: capitalize;
+}
+
+#wind-speed {
+  text-transform: none;
 }
 
 h3 {
