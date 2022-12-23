@@ -4,7 +4,7 @@ body {
 
 .container {
   display: block;
-  width: 40%;
+  width: 34%;
   margin: 100px auto;
   padding: 20px;
   background-color: #fff;
@@ -46,8 +46,9 @@ h2 {
 
 #main-icon {
   width: 100px;
-  margin-right: 50px;
+
   margin-bottom: 37px;
+  display: inline-flex;
 }
 
 .temp {
@@ -63,7 +64,7 @@ h1 {
 }
 
 #current-temp {
-  font-size: 45pt;
+  font-size: 40pt;
 }
 
 p {

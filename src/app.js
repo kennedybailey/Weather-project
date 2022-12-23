@@ -23,6 +23,28 @@ if (((currMinutes) => 0) && currMinutes < 10) {
 let minutes = currMinutes;
 
 dateElement.innerHTML = `${day} ${hours}:${minutes}`;
+//forecast function
+function forecast(response) {
+  function forecastBox(forecastData, whichBox) {
+    let date = new Date(forecastData.dt * 1000);
+    let day = days[date.getDay()];
+    let dayOfWeek = document.querySelector(`#${whichBox}-day`);
+    dayOfWeek.innerHTML = day;
+    let mainIcon = forecastData.weather[0].main;
+    updateIcon(document.querySelector(`#${whichBox}-icon`), mainIcon);
+    let forecastTemp = document.querySelector(`#${whichBox}-min`);
+    if (currentTempUnit === "Celsius") {
+      forecastTemp.innerHTML = Math.round(forecastData.main.temp) + "°C";
+    } else {
+      forecastTemp.innerHTML = Math.round(forecastData.main.temp) + "°F";
+    }
+  }
+  forecastBox(response.data.list[7], "first");
+  forecastBox(response.data.list[15], "second");
+  forecastBox(response.data.list[23], "third");
+  forecastBox(response.data.list[31], "fourth");
+  forecastBox(response.data.list[39], "fifth");
+}
 
 //search city
 function searchCity(event) {
@@ -64,25 +86,6 @@ function searchCity(event) {
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${apiUnit}`;
   axios.get(apiUrl).then(changeInfo);
-  //forecast function
-  function forecast(response) {
-    console.log(response);
-    function forecastBox(forecastData, whichBox) {
-      let date = new Date(forecastData.dt * 1000);
-      let day = days[date.getDay()];
-      let dayOfWeek = document.querySelector(`#${whichBox}-day`);
-      dayOfWeek.innerHTML = day;
-      let mainIcon = forecastData.weather[0].main;
-      updateIcon(document.querySelector(`#${whichBox}-icon`), mainIcon);
-      let forecastTemp = document.querySelector(`#${whichBox}-min`);
-      forecastTemp.innerHTML = Math.round(forecastData.main.temp) + "°C";
-    }
-    forecastBox(response.data.list[7], "first");
-    forecastBox(response.data.list[15], "second");
-    forecastBox(response.data.list[23], "third");
-    forecastBox(response.data.list[31], "fourth");
-    forecastBox(response.data.list[39], "fifth");
-  }
 
   let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${apiUnit}`;
   axios.get(forecastUrl).then(forecast);
@@ -134,6 +137,9 @@ function defaultWeather(response) {
 let firstApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=toronto&appid=${apiKey}&units=metric`;
 axios.get(firstApiUrl).then(defaultWeather);
 
+let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=toronto&appid=${apiKey}&units=metric`;
+axios.get(forecastUrl).then(forecast);
+
 //temp change
 let currentTempUnit = "Celsius";
 function updateUnit(currTemp, newUnit) {
@@ -143,31 +149,45 @@ function updateUnit(currTemp, newUnit) {
     return Math.round((currTemp - 32) * (5 / 9));
   }
 }
-
+function getTempNumber(tempWithUnit) {
+  return tempWithUnit.substring(0, tempWithUnit.length - 2);
+}
 function changeUnit(event) {
   let changeCurrentTemp = document.querySelector("#current-temp");
   let changeFeelsLike = document.querySelector("#feels-like-temp");
   let changeWindSpeed = document.querySelector("#wind-speed");
-  let currentTempNumber = changeCurrentTemp.innerHTML;
-  let feelsLikeTempNumber = changeFeelsLike.innerHTML;
+  let firstTemp = document.querySelector("#first-min");
+  let secondTemp = document.querySelector("#second-min");
+  let thirdTemp = document.querySelector("#third-min");
+  let fourthTemp = document.querySelector("#fourth-min");
+  let fifthTemp = document.querySelector("#fifth-min");
   let windSpeedNumber = changeWindSpeed.innerHTML;
-  currentTempNumber = currentTempNumber.substring(
-    0,
-    currentTempNumber.length - 2
-  );
-  feelsLikeTempNumber = feelsLikeTempNumber.substring(
-    0,
-    feelsLikeTempNumber.length - 2
-  );
+  let currentTempNumber = getTempNumber(changeCurrentTemp.innerHTML);
+  let feelsLikeTempNumber = getTempNumber(changeFeelsLike.innerHTML);
+  let firstTempNumber = getTempNumber(firstTemp.innerHTML);
+  let secondTempNumber = getTempNumber(secondTemp.innerHTML);
+  let thirdTempNumber = getTempNumber(thirdTemp.innerHTML);
+  let fourthTempNumber = getTempNumber(fourthTemp.innerHTML);
+  let fifthTempNumber = getTempNumber(fifthTemp.innerHTML);
   if (currentTempUnit === "Celsius") {
     windSpeedNumber = windSpeedNumber.substring(0, windSpeedNumber.length - 5);
     currentTempUnit = "Fahrenheit";
     let newCurrentTemp = updateUnit(currentTempNumber, currentTempUnit);
     let newFeelsLike = updateUnit(feelsLikeTempNumber, currentTempUnit);
     let newWindSpeed = Math.round(windSpeedNumber / 1.609);
+    let newFirstTemp = updateUnit(firstTempNumber, currentTempUnit);
+    let newSecondTemp = updateUnit(secondTempNumber, currentTempUnit);
+    let newThirdTemp = updateUnit(thirdTempNumber, currentTempUnit);
+    let newFourthTemp = updateUnit(fourthTempNumber, currentTempUnit);
+    let newFifthTemp = updateUnit(fifthTempNumber, currentTempUnit);
     changeCurrentTemp.innerHTML = `${newCurrentTemp}°F`;
     changeFeelsLike.innerHTML = `${newFeelsLike}°F`;
     changeWindSpeed.innerHTML = `${newWindSpeed} mph`;
+    firstTemp.innerHTML = `${newFirstTemp}°F`;
+    secondTemp.innerHTML = `${newSecondTemp}°F`;
+    thirdTemp.innerHTML = `${newThirdTemp}°F`;
+    fourthTemp.innerHTML = `${newFourthTemp}°F`;
+    fifthTemp.innerHTML = `${newFifthTemp}°F`;
     tempChange.innerHTML = "Celsius";
   } else {
     currentTempUnit = "Celsius";
@@ -175,9 +195,19 @@ function changeUnit(event) {
     let newCurrentTemp = updateUnit(currentTempNumber, currentTempUnit);
     let newFeelsLike = updateUnit(feelsLikeTempNumber, currentTempUnit);
     let newWindSpeed = Math.round(windSpeedNumber * 1.609);
+    let newFirstTemp = updateUnit(firstTempNumber, currentTempUnit);
+    let newSecondTemp = updateUnit(secondTempNumber, currentTempUnit);
+    let newThirdTemp = updateUnit(thirdTempNumber, currentTempUnit);
+    let newFourthTemp = updateUnit(fourthTempNumber, currentTempUnit);
+    let newFifthTemp = updateUnit(fifthTempNumber, currentTempUnit);
     changeCurrentTemp.innerHTML = `${newCurrentTemp}°C`;
     changeFeelsLike.innerHTML = `${newFeelsLike}°C`;
     changeWindSpeed.innerHTML = `${newWindSpeed} km/h`;
+    firstTemp.innerHTML = `${newFirstTemp}°C`;
+    secondTemp.innerHTML = `${newSecondTemp}°C`;
+    thirdTemp.innerHTML = `${newThirdTemp}°C`;
+    fourthTemp.innerHTML = `${newFourthTemp}°C`;
+    fifthTemp.innerHTML = `${newFifthTemp}°C`;
     tempChange.innerHTML = "Fahrenheit";
   }
 }
