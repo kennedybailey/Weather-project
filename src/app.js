@@ -8,7 +8,7 @@ let days = [
   "Monday",
   "Tuesday",
   "Wednesday",
-  "Thurday",
+  "Thursday",
   "Friday",
   "Saturday",
 ];
@@ -16,7 +16,11 @@ let days = [
 let now = new Date();
 let day = days[now.getDay()];
 let hours = now.getHours();
-let minutes = now.getMinutes();
+let currMinutes = now.getMinutes();
+if (((currMinutes) => 0) && currMinutes < 10) {
+  currMinutes = "0" + currMinutes;
+}
+let minutes = currMinutes;
 
 dateElement.innerHTML = `${day} ${hours}:${minutes}`;
 
