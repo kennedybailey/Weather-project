@@ -12,6 +12,16 @@ body {
   box-shadow: 1px 1px 1px #d6d2d0;
 }
 
+#temp-change {
+  border: solid #818181 1px;
+  border-radius: 2px;
+}
+
+#temp-change:hover {
+  transition: all 200ms ease;
+  background-color: #ddd;
+}
+
 form {
   text-align: right;
 }
@@ -20,6 +30,7 @@ h2 {
   font-family: "Poppins", sans-serif;
   color: #1f1d1b;
   text-transform: capitalize;
+  line-height: 0.5;
 }
 
 .weatherinfo {
@@ -37,8 +48,12 @@ h1 {
   color: #1f1d1b;
 }
 
+#current-temp {
+  font-size: 32pt;
+}
+
 #date {
-  font-size: 25px;
+  font-size: 15px;
   text-align: right;
   font-family: "Poppins", sans-serif;
   padding: 2;

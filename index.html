@@ -26,11 +26,21 @@
   </head>
   <body>
     <div class="container">
-      <form>
-        <input type="text" placeholder="search for a city" id="search-bar" />
-        <input type="submit" value="search" id="submit" />
-      </form>
       <div class="row">
+        <div class="col-6">
+          <button id="temp-change">Farenheit</button>
+        </div>
+        <div class="col-6">
+          <form>
+            <input
+              type="text"
+              placeholder="search for a city"
+              id="search-bar"
+            />
+            <input type="submit" value="search" id="submit" />
+          </form>
+        </div>
+
         <div class="col-6">
           <h2>
             <span class="temp" id="current-temp">0°C</span>
@@ -40,7 +50,8 @@
             <br />
             <span class="weatherinfo" id="weather-description">rain</span
             ><span class="weatherinfo">,</span>
-            <span class="weatherinfo" id="wind-speed">wind speed</span><br />
+            <span class="weatherinfo">Wind Speed: </span
+            ><span class="weatherinfo" id="wind-speed"> 5 km/h</span><br />
             <span class="weatherinfo">Feels like</span>
             <span class="temp weatherinfo" id="feels-like-temp">-7°C</span>
           </h2>
