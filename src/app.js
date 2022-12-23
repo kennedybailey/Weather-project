@@ -30,10 +30,18 @@ function searchCity(event) {
   function changeInfo(response) {
     let currentTemp = Math.round(response.data.main.temp);
     let feelsLike = Math.round(response.data.main.feels_like);
+    let currentWind = Math.round(response.data.wind.speed);
+    let currentDescription = response.data.weather[0].description;
+    let changeCurrentWind = document.querySelector("#wind-speed");
     let changeCurrentTemp = document.querySelector("#current-temp");
     let changeFeelsLike = document.querySelector("#feels-like-temp");
+    let changeCurrentDescription = document.querySelector(
+      "#weather-description"
+    );
     changeCurrentTemp.innerHTML = `${currentTemp}°C`;
     changeFeelsLike.innerHTML = `${feelsLike}°C`;
+    changeCurrentWind.innerHTML = `Wind Speed: ${currentWind} km/h`;
+    changeCurrentDescription.innerHTML = `${currentDescription}`;
   }
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${capitalizeCity}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(changeInfo);

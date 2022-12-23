@@ -19,6 +19,7 @@ form {
 h2 {
   font-family: "Poppins", sans-serif;
   color: #1f1d1b;
+  text-transform: capitalize;
 }
 
 .weatherinfo {
