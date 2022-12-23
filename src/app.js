@@ -53,12 +53,39 @@ function searchCity(event) {
     }
 
     changeCurrentDescription.innerHTML = `${currentDescription}`;
+    let mainIcon = response.data.weather[0].main;
+    if (mainIcon === `Thunder`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/thunder.svg");
+    } else if (mainIcon === `Drizzle`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/rainy-4.svg");
+    } else if (mainIcon === `Rain`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/rainy-6.svg");
+    } else if (mainIcon === `Snow`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/snowy-6.svg");
+    } else if (mainIcon === `Clear`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/day.svg");
+    } else if (mainIcon === `Clouds`) {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute("src", "media/cloudy.svg");
+    } else {
+      let changeMainIcon = document.querySelector("#main-icon");
+      changeMainIcon.setAttribute(
+        "src",
+        "http://openweathermap.org/img/wn/50d@2x.png"
+      );
+    }
   }
   let changeToUnit = document.querySelector("#temp-change").innerHTML;
   let apiUnit = "metric";
   if (changeToUnit === "Celsius") {
     apiUnit = "imperial";
   }
+
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${apiUnit}`;
   axios.get(apiUrl).then(changeInfo);
 }
