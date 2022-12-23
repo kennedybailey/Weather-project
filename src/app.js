@@ -54,31 +54,7 @@ function searchCity(event) {
 
     changeCurrentDescription.innerHTML = `${currentDescription}`;
     let mainIcon = response.data.weather[0].main;
-    if (mainIcon === `Thunder`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/thunder.svg");
-    } else if (mainIcon === `Drizzle`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/rainy-4.svg");
-    } else if (mainIcon === `Rain`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/rainy-6.svg");
-    } else if (mainIcon === `Snow`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/snowy-6.svg");
-    } else if (mainIcon === `Clear`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/day.svg");
-    } else if (mainIcon === `Clouds`) {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute("src", "media/cloudy.svg");
-    } else {
-      let changeMainIcon = document.querySelector("#main-icon");
-      changeMainIcon.setAttribute(
-        "src",
-        "http://openweathermap.org/img/wn/50d@2x.png"
-      );
-    }
+    updateIcon(document.querySelector("#main-icon"), mainIcon);
   }
   let changeToUnit = document.querySelector("#temp-change").innerHTML;
   let apiUnit = "metric";
@@ -88,11 +64,53 @@ function searchCity(event) {
 
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${apiUnit}`;
   axios.get(apiUrl).then(changeInfo);
+  //forecast function
+  function forecast(response) {
+    console.log(response);
+    function forecastBox(forecastData, whichBox) {
+      let date = new Date(forecastData.dt * 1000);
+      let day = days[date.getDay()];
+      let dayOfWeek = document.querySelector(`#${whichBox}-day`);
+      dayOfWeek.innerHTML = day;
+      let mainIcon = forecastData.weather[0].main;
+      updateIcon(document.querySelector(`#${whichBox}-icon`), mainIcon);
+      let forecastTemp = document.querySelector(`#${whichBox}-min`);
+      forecastTemp.innerHTML = Math.round(forecastData.main.temp) + "°C";
+    }
+    forecastBox(response.data.list[7], "first");
+    forecastBox(response.data.list[15], "second");
+    forecastBox(response.data.list[23], "third");
+    forecastBox(response.data.list[31], "fourth");
+    forecastBox(response.data.list[39], "fifth");
+  }
+
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${apiUnit}`;
+  axios.get(forecastUrl).then(forecast);
 }
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchCity);
 
+//icon updates
+function updateIcon(icon, weather) {
+  if (weather === `Thunder`) {
+    icon.setAttribute("src", "media/thunder.svg");
+  } else if (weather === `Drizzle`) {
+    icon.setAttribute("src", "media/rainy-4.svg");
+  } else if (weather === `Rain`) {
+    icon.setAttribute("src", "media/rainy-6.svg");
+  } else if (weather === `Snow`) {
+    icon.setAttribute("src", "media/snowy-6.svg");
+  } else if (weather === `Clear`) {
+    icon.setAttribute("src", "media/day.svg");
+  } else if (weather === `Clouds`) {
+    icon.setAttribute("src", "media/cloudy.svg");
+  } else {
+    icon.setAttribute("src", "http://openweathermap.org/img/wn/50d@2x.png");
+  }
+}
+
+//default weather info
 function defaultWeather(response) {
   let h1 = document.querySelector("h1");
   h1.innerHTML = `Toronto`;
@@ -109,6 +127,9 @@ function defaultWeather(response) {
   changeCurrentWind.innerHTML = `${currentWind} km/h`;
 
   changeCurrentDescription.innerHTML = `${currentDescription}`;
+
+  let mainIcon = response.data.weather[0].main;
+  updateIcon(document.querySelector("#main-icon"), mainIcon);
 }
 let firstApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=toronto&appid=${apiKey}&units=metric`;
 axios.get(firstApiUrl).then(defaultWeather);
