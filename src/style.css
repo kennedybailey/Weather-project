@@ -21,6 +21,11 @@ h2 {
   color: #1f1d1b;
 }
 
+.weatherinfo {
+  font-size: 15px;
+  display: inline-block;
+}
+
 .temp {
   color: #53a6c8;
 }
