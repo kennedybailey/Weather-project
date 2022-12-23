@@ -12,14 +12,24 @@ body {
   box-shadow: 1px 1px 1px #d6d2d0;
 }
 
-#temp-change {
-  border: solid #818181 1px;
-  border-radius: 2px;
+#temp-change,
+#submit {
+  border: solid #3d4e65 1px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  background-color: #f1f5f5;
 }
 
-#temp-change:hover {
+#temp-change:hover,
+#submit:hover {
   transition: all 200ms ease;
   background-color: #ddd;
+}
+
+#search-bar {
+  border: solid #3d4e65 1px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
 }
 
 form {
@@ -31,6 +41,12 @@ h2 {
   color: #1f1d1b;
   text-transform: capitalize;
   line-height: 0.5;
+  margin-top: 8px;
+}
+
+#main-icon {
+  width: 75px;
+  aspect-ratio: 1/1;
 }
 
 .weatherinfo {
@@ -46,6 +62,7 @@ h1 {
   text-align: right;
   font-family: "Poppins", sans-serif;
   color: #1f1d1b;
+  margin-top: 10px;
 }
 
 #current-temp {
@@ -62,6 +79,7 @@ h1 {
 h3 {
   color: #1f1d1b;
   font-family: "Poppins", sans-serif;
+  margin-top: 8px;
 }
 
 .upcomingForecast {
