@@ -27,11 +27,9 @@ dateElement.innerHTML = `${day} ${hours}:${minutes}`;
 //search city
 function searchCity(event) {
   event.preventDefault();
-  let input = document.querySelector("#search-bar");
+  let city = document.querySelector("#search-bar").value;
   let h1 = document.querySelector("h1");
-  let capitalizeCity =
-    input.value.charAt(0).toUpperCase() + input.value.slice(1);
-  h1.innerHTML = `${capitalizeCity}`;
+  h1.innerHTML = `${city}`;
 
   function changeInfo(response) {
     let currentTemp = Math.round(response.data.main.temp);
@@ -61,12 +59,32 @@ function searchCity(event) {
   if (changeToUnit === "Celsius") {
     apiUnit = "imperial";
   }
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${capitalizeCity}&appid=${apiKey}&units=${apiUnit}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${apiUnit}`;
   axios.get(apiUrl).then(changeInfo);
 }
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchCity);
+
+function defaultWeather(response) {
+  let h1 = document.querySelector("h1");
+  h1.innerHTML = `Toronto`;
+  let currentTemp = Math.round(response.data.main.temp);
+  let feelsLike = Math.round(response.data.main.feels_like);
+  let currentWind = Math.round(response.data.wind.speed);
+  let currentDescription = response.data.weather[0].description;
+  let changeCurrentWind = document.querySelector("#wind-speed");
+  let changeCurrentTemp = document.querySelector("#current-temp");
+  let changeFeelsLike = document.querySelector("#feels-like-temp");
+  let changeCurrentDescription = document.querySelector("#weather-description");
+  changeCurrentTemp.innerHTML = `${currentTemp}°C`;
+  changeFeelsLike.innerHTML = `${feelsLike}°C`;
+  changeCurrentWind.innerHTML = `${currentWind} km/h`;
+
+  changeCurrentDescription.innerHTML = `${currentDescription}`;
+}
+let firstApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=toronto&appid=${apiKey}&units=metric`;
+axios.get(firstApiUrl).then(defaultWeather);
 
 //temp change
 let currentTempUnit = "Celsius";

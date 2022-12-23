@@ -63,6 +63,7 @@ h1 {
   font-family: "Poppins", sans-serif;
   color: #1f1d1b;
   margin-top: 10px;
+  text-transform: capitalize;
 }
 
 #current-temp {
